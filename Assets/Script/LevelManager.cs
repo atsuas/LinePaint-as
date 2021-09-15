@@ -24,11 +24,12 @@ namespace LinePaint
 
         private void CreateGrid()
         {
-            for (var x = 0; x < gridScript.gridArray.GetLength(0); x++)
+            for (int x = 0; x < gridScript.GridArray.GetLength(0); x++)
             {
-                for (var x = 0; x < gridScript.gridArray.GetLength(1); x++)
+                for (int y = 0; y < gridScript.GridArray.GetLength(1); y++)
                 {
                     GameObject block = Instantiate(blockPrefab);
+                    block.transform.position = gridScript.GetCellWorldPosition(x, y);
                 }
             }
         }

@@ -24,6 +24,11 @@ namespace LinePaint
             gridArray = new int[width, height];
         }
 
+        public Vector3 GetCellWorldPosition(int x, int y)
+        {
+            return new Vector3(Mathf.FloorToInt(_cellSize * x), 0, Mathf.FloorToInt(_cellSize * y));
+            
+        }
     }
 
 }
