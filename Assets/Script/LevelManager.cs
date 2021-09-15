@@ -13,9 +13,13 @@ namespace LinePaint
         [SerializeField] private float cellSize;
 
         private GridScript gridScript;
+        private SwipeController swipeController;
 
         private void Start()
         {
+            swipeController = new SwipeController();
+            swipeController.SetLevelManager(this);
+
             gridScript = new GridScript();
             gridScript.Initialize(width, height, cellSize);
 
@@ -34,6 +38,17 @@ namespace LinePaint
             }
         }
 
-    }
+        public void MoveBrush(Swipe direction)
+        {
+            Debug.Log(direction);
+        }
 
+        private void Update()
+        {
+            if (swipeController != null)
+            {
+                swipeController.OnUpdate();
+            }
+        }
+    }
 }
