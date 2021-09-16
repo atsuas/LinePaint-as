@@ -341,6 +341,7 @@ MonoBehaviour:
   gameCamera: {fileID: 963194229}
   blockPrefab: {fileID: 395599218854667840, guid: c27053f55444c4630a8209be77c989c6,
     type: 3}
+  brush: {fileID: 2538078108394388458, guid: 5770ca382209c45e79684bf3e9974a5f, type: 3}
   width: 3
   height: 3
   cellSize: 1

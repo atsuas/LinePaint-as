@@ -9,6 +9,7 @@ namespace LinePaint
     {
         [SerializeField] private CameraZoom gameCamera;
         [SerializeField] private Cell blockPrefab;
+        [SerializeField] private BrushController brush; //追加
         [SerializeField] private int width;
         [SerializeField] private int height;
         [SerializeField] private float cellSize;
@@ -16,6 +17,7 @@ namespace LinePaint
         private Cell[,] cells;
         private GridScript gridScript;
         private SwipeController swipeController;
+        private BrushController currentBrush; //追加
 
         private void Start()
         {
@@ -27,7 +29,10 @@ namespace LinePaint
             cells = new Cell[width, height];
 
             CreateGrid(Vector3.zero);
-            //追加
+
+            currentBrush = Instantiate(brush, gridScript.GetCellWorldPosition(0, 0), Quaternion.identity); //追加
+            currentBrush.coords = new Vector2Int(0, 0); //追加
+
             gameCamera.ZoomPerspectiveCamera(width, height);
 
         }
@@ -52,9 +57,19 @@ namespace LinePaint
             return cell;
         }
 
+        //MoveBrushの中身を追加
         public void MoveBrush(Swipe direction)
         {
-            Debug.Log(direction);
+            
+            Vector2Int newCoords = gridScript.GetCellXYBySwipe(currentBrush.coords.x, currentBrush.coords.y, direction);
+
+            if (newCoords != new Vector2Int(-1, -1))
+            {
+                Vector3 finalPos = gridScript.GetCellWorldPosition(newCoords.x, newCoords.y);
+
+                currentBrush.transform.position = finalPos;
+                currentBrush.coords = newCoords;
+            }
         }
 
         private void Update()
